@@ -1,0 +1,65 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+.container{
+    height: 100%;
+}
+.toolsDiv {
+    border: 1px black solid;
+    background-color: #d6d5d5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    padding: 15px;
+}
+
+.container-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 75%;
+}
+
+#PH-svg {
+    width: 75%;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 75%;
+}
+
+.wrapHidden {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.toolsDiv .hiddenLayersIN{
+    width: 10%;
+}
+
+
+.toolsDiv input,.toolsDiv select,.toolsDiv button{
+    min-width: 50px;
+    /* max-width: 100px; */
+    width: 50%;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 5%; 
+}
+
+.jsonInput{
+    width: 75%;
+    height: 65%;
+    font-size: 19px;
+    border-radius: 15px;
+
+}
