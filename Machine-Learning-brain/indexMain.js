@@ -1,6 +1,12 @@
 _ThisNet = null;
 _config=null;
+_loaderInterval=null;
 
+
+
+$(document).ready(()=>{
+    $('#loader').hide();
+})
 
 const CreateNN=()=>{
 
@@ -28,26 +34,34 @@ const CreateNN=()=>{
 }
 
 
+const RenderBase3=()=>{
+
+    let strToRender = `
+    <h1>Base 3 : Test - Evalute</h1>
+    <button>Test</button>
+    <button>Evaluet</button>`;
+    const ph = document.getElementById('toolsDiv');
+    ph.innerHTML = strToRender
+}
 
 const RenderTrainBase=()=>{
     const ph = document.getElementById('toolsDiv');
     let strToRender = `<h1>Base 2 : Train</h1>`;
     strToRender+=`<textarea class="jsonInput" name="jsonInput" id="jsonInput" cols="30" rows="10">
-{
- "1":{
+[
+ {
   "input":[0,1],
   "output":[1]
  },
- "2":{
+ {
   "input":[1,0],
   "output":[1]
  },
- "3":{
+ {
   "input":[0,1],
   "output":[1]
- },
-}
-            </textarea>`
+ }
+]</textarea>`
 
 
 
@@ -60,11 +74,39 @@ const RenderTrainBase=()=>{
 
 const TrainNN=()=>{
     let trainString = document.getElementById('jsonInput').value;
-    console.log(trainString);
+    //console.log(trainString);
     trainString=trainString.replace('\n','');
-
     const trainObject = JSON.parse(trainString);
-    console.log(trainObject);
+    //console.log(trainObject);
+    loader();
+    _ThisNet.train(trainObject,{
+        callback:(stats)=>{
+            console.log(stats)
+        }
+    });
+    stopLoader();
+    RenderBase3();
+}
+
+
+const loader=()=>{
+    $('#loader').show();
+    let count = 0;
+    _loaderInterval = setInterval(()=>{
+        $('#loadingText').html('Learning');
+        for (let i = 0; i < count; i++) {
+            $('#loadingText').append('.');
+            
+        }
+        count++;
+        count==4?count=0:'';
+    },500);
+
+}
+
+const stopLoader=()=>{
+    $('#loader').hide();
+   _loaderInterval!=null?clearInterval(_loaderInterval):'';
 }
 
 const AddHiddenInput = ()=>{

@@ -50,16 +50,37 @@ body,html {
 .toolsDiv input,.toolsDiv select,.toolsDiv button{
     min-width: 50px;
     /* max-width: 100px; */
-    width: 50%;
+    width: 65%;
     text-align: center;
     font-size: 22px;
     margin-bottom: 5%; 
 }
 
 .jsonInput{
-    width: 75%;
-    height: 65%;
+    width: 85%;
+    height: 75%;
     font-size: 19px;
     border-radius: 15px;
 
 }
+textarea{
+    resize:none ;
+}
+#loader {
+     /* display: block; */
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: absolute;
+     top: 10vh;
+     width: 50vw;
+     left: 25vw;
+     font-size: 4vw;
+     /* border-radius: 50%; */
+}
+#loader img{
+    border-radius: 25px;
+}
+
+
