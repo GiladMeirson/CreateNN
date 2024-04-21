@@ -31,7 +31,7 @@ body,html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 75%;
+    height: 100%;
 }
 
 .wrapHidden {
@@ -54,8 +54,40 @@ body,html {
     text-align: center;
     font-size: 22px;
     margin-bottom: 5%; 
+    padding: 5px;
+    border-radius: 5px;
+}
+.toolsDiv button{
+    margin-block: 10px;
+}
+.toolsDiv #AddhiddenBtn {
+    margin-block: 0px;
+    margin-bottom: 5%;
 }
 
+.console{
+    width: 100%;
+    height: 25%;
+    background-color: black;
+    overflow-y: scroll;
+    
+}
+#clearConsol{
+    position: absolute;
+    top: 76%;
+    right: 2%;
+    cursor: pointer;
+}
+.consolContent{
+    padding: 10px;
+}
+.consolContent p{
+    color: rgb(110, 181, 110);
+    margin-block: 3px;
+    font-size: 18px;
+
+    
+}
 .jsonInput{
     width: 85%;
     height: 75%;
@@ -66,7 +98,7 @@ body,html {
 textarea{
     resize:none ;
 }
-#loader {
+#loader,#GraphModal {
      /* display: block; */
      text-align: center;
      display: flex;
@@ -79,8 +111,37 @@ textarea{
      font-size: 4vw;
      /* border-radius: 50%; */
 }
+#GraphModal{
+    font-size: 18px;
+    background-color: #d6d5d5;
+        /* display: block; */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 10vh;
+        width: 50vw;
+        left: 25vw;
+        /* border-radius: 50%; */
+        padding: 15px;
+        border: 2px solid black;
+
+}
+#GraphModal span{
+    float: left;
+    cursor: pointer;
+}
+#GraphModal span:hover{
+    float: left;
+    cursor: pointer;
+    color: lightcoral;
+}
 #loader img{
     border-radius: 25px;
 }
 
+button{
+    cursor: pointer;
+}
 
