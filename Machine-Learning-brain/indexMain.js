@@ -14,7 +14,9 @@ $(document).ready(()=>{
     $('#GraphModal').hide();
     CreateNN();
     ResetModel();
-    document.getElementById('consolPH').innerHTML= `<p style="color: white; padding-bottom: 10px; font-size: 18px; border-bottom:1px solid white;">consol</p>`
+    document.getElementById('consolPH').innerHTML= `<p style="color: white; padding-bottom: 10px; font-size: 18px; border-bottom:1px solid white;">consol</p>`;
+
+ 
 })
 
 
@@ -205,9 +207,14 @@ const downloadModelTextFile=()=>{
 }
 
 
+
 const RenderTrainBase=()=>{
     const ph = document.getElementById('toolsDiv');
     let strToRender = `<h1>Base 2 : Train</h1>`;
+    strToRender += `<input accept=".json" id="fileIN" type="file" style="display: none;">
+    <label for="fileIN" class="custom-file-upload">Upload JSON File</label>`;
+    strToRender += `<h3>or</h3>`;
+    strToRender += `<h3>write your data here</h3>`;
     strToRender+=`<textarea class="jsonInput" name="jsonInput" id="jsonInput" cols="30" rows="10">
 [
  {
@@ -230,7 +237,22 @@ const RenderTrainBase=()=>{
 
     strToRender += `<button onclick="TrainNN()">Train Network</button>`;
     strToRender += `<button onclick="ResetModel()">Back</button>`;
-    ph.innerHTML=strToRender
+    ph.innerHTML=strToRender;
+    const fileInput = document.getElementById('fileIN');
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const jsonData = JSON.parse(event.target.result);
+                $('#jsonInput').val(JSON.stringify(jsonData, null, 2));
+                console.log(jsonData); // Here's your JSON data
+            } catch (error) {
+                console.error('Invalid JSON file:', error);
+            }
+        };
+        reader.readAsText(file);
+    });
 
 }
 

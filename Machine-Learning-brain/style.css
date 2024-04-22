@@ -145,3 +145,26 @@ button{
     cursor: pointer;
 }
 
+.toolsDiv h3 {
+    margin-block: 4px;
+}
+#fileIN {
+    width: 50%;
+    
+}
+
+
+.custom-file-upload {
+    min-width: 50px;
+    /* max-width: 100px; */
+    width: 65%;
+    text-align: center;
+    font-size: 22px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: #F0F0F0;
+
+}
+
