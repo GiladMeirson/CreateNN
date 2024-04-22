@@ -186,8 +186,7 @@ const RenderBase3=()=>{
     let strToRender = `
     <h1>Base 3 : Test - Evalute</h1>
     <h3>your model is ready.</h3>
-    <button>Test</button>
-    <button onclick="renderEvaluteBase()" >Evaluate</button>
+    <button onclick="renderEvaluteBase()">Test</button>
     <button onclick="displayTrainGraph()">Show Train Error</button>
     <button onclick="displayTrainGraphaccuracy()">Show Train Accuracy</button>
 
@@ -259,7 +258,10 @@ const RenderTrainBase=()=>{
 const renderEvaluteBase=()=>{
     const ph = document.getElementById('toolsDiv');
     let strToRender = `<h1>Evaluate  The Model</h1>`;
-    
+    strToRender += `<input accept=".json" id="fileINtest" type="file" style="display: none;">
+    <label for="fileINtest" class="custom-file-upload">Upload JSON File</label>`;
+    strToRender += `<h3>or</h3>`;
+    strToRender += `<h3>write your data here</h3>`;
     strToRender+=`<textarea class="jsonInput" name="jsonInput" id="EvaluteInput" cols="30" rows="10">
 [
  {
@@ -283,6 +285,21 @@ const renderEvaluteBase=()=>{
     strToRender += `<button style="margin-block:15px;" onclick="EvaluteNet()">Evalute</button>`;
     strToRender += `<button onclick="RenderBase3()"> back </button>`;
     ph.innerHTML=strToRender
+    const fileInput = document.getElementById('fileINtest');
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const jsonData = JSON.parse(event.target.result);
+                $('#EvaluteInput').val(JSON.stringify(jsonData, null, 2));
+                console.log(jsonData); // Here's your JSON data
+            } catch (error) {
+                console.error('Invalid JSON file:', error);
+            }
+        };
+        reader.readAsText(file);
+    });
 }
 
 const ClearConsol=()=>{
