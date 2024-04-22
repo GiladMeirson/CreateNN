@@ -204,6 +204,7 @@ const downloadModelTextFile=()=>{
     downloadTextFile('Your_Model',stringModel);
 }
 
+
 const RenderTrainBase=()=>{
     const ph = document.getElementById('toolsDiv');
     let strToRender = `<h1>Base 2 : Train</h1>`;
