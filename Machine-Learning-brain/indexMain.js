@@ -59,23 +59,25 @@ const EvaluteNet=()=>{
 
     const data = document.getElementById('EvaluteInput').value;
     const dataObject = JSON.parse(data);
-    console.log('what we got ',dataObject);
+    //console.log('what we got ',dataObject);
     const ph = document.getElementById('consolPH');
     ph.innerHTML+=`<p>computing....</p>`
     ph.innerHTML+=`<p>--------------</p>`
     let errorsum=0;
+    let correct = 0;
     for (let i = 0; i < dataObject.length; i++) {
         const obj = dataObject[i];
         const res = _ThisNet.run(obj.input);
         console.log('res ',res);
-        _EvaluteArray.push({predict:res[0],real:obj.output});
-        errorsum+=Math.abs(obj.output-res[0]); 
-        ph.innerHTML+=`<p>model predict: ${res[0]}</p>`
-        ph.innerHTML+=`<p>real output: ${obj.output}</p>`
+        _EvaluteArray.push({predict:res,real:obj.output});
+        checkMaxIndex(res,obj.output)?correct++:'';
+         
+        ph.innerHTML+=`<p>model predict: ${RenderStringPredict(res)}</p>`
+        ph.innerHTML+=`<p>real output: ${RenderStringPredict(obj.output,false)}</p>`
         ph.innerHTML+=`<p>--------------</p>`
     }
-    let avgError = errorsum/dataObject.length;
-    const accuracy = 1- avgError;
+    
+    const accuracy = (correct/dataObject.length);
     ph.innerHTML+=`<p>accuracy: ${accuracy}</p>`
     const Container = document.getElementById('consoleContainer');
     Container.scrollTop = Container.scrollHeight;
@@ -92,7 +94,7 @@ const TrainNN=()=>{
     _config.learningRate=_learningRate;
     _ThisNet.train(trainObject,{
         callback:(stats)=>{
-            console.log(stats)
+            //console.log(stats)
             _trainstats.push(stats)
             RenderToConsol(`iterations: ${stats.iterations} --> Error: ${stats.error}`)
         },
@@ -109,9 +111,40 @@ const TrainNN=()=>{
 }
 
 
+const RenderStringPredict =(obj,flag=true)=>{
+    
+    
+        let max = obj[0];
+        let maxIndex = 0;
+        for (let i = 1; i < obj.length; i++) {
+            if (obj[i] > max) {
+                max = obj[i];
+                maxIndex = i;
+            }
+        }
 
+        let secondMax = -Infinity;
+        let secondMaxIndex = -1;
+        for (let i = 0; i < obj.length; i++) {
+            if (obj[i] > secondMax && obj[i] < max) {
+                secondMax = obj[i];
+                secondMaxIndex = i;
+            }
+        }
+        let str =  `likly: ${maxIndex} with ${max.toFixed(2)} <br> second likly: ${secondMaxIndex} with ${secondMax.toFixed(2)}<br><br>`
+        flag?str=str:str=`${maxIndex}`;
+        return str;
 
+      
+    
+  
+}
 
+const checkMaxIndex = (arr1, arr2) => {
+    const maxIndex1 = arr1.indexOf(Math.max(...arr1));
+    const maxIndex2 = arr2.indexOf(Math.max(...arr2));
+    return maxIndex1 === maxIndex2;
+};
 
 
 
