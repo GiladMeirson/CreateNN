@@ -234,15 +234,17 @@ const RenderBase3=()=>{
 
 
 const downloadModelTextFile=()=>{
-    
-    downloadJSON(_ThisNet,'Your_Model');
+  
+    const trainedFunction = _ThisNet.toFunction();
+    const trainedFunctionString = trainedFunction.toString();
+    downloadJSON(trainedFunctionString,'TrainedModel');
 }
 
 function downloadJSON(obj, filename) {
-    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+    var data = "text/javascript;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
     var a = document.createElement('a');
     a.href = 'data:' + data;
-    a.download = filename + '.json';
+    a.download = filename + '.js';
     a.innerHTML = 'download JSON';
 
     var container = document.body; // Use an appropriate container
