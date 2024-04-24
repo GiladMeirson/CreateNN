@@ -234,9 +234,24 @@ const RenderBase3=()=>{
 
 
 const downloadModelTextFile=()=>{
-    const stringModel = JSON.stringify(_ThisNet);
-    downloadTextFile('Your_Model',stringModel);
+    
+    downloadJSON(_ThisNet,'Your_Model');
 }
+
+function downloadJSON(obj, filename) {
+    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+    var a = document.createElement('a');
+    a.href = 'data:' + data;
+    a.download = filename + '.json';
+    a.innerHTML = 'download JSON';
+
+    var container = document.body; // Use an appropriate container
+    container.appendChild(a);
+    a.click();
+    a.remove();
+}
+
+
 
 
 

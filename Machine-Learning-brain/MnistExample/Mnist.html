@@ -6,13 +6,16 @@
     <title>Mnist</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/brain.js"></script>
+
     <link rel="stylesheet" href="./Mnist.css">
+    <script src="./Your_Model.js"></script>
     <script src="./Mnist.js"></script>
 </head>
 <body>
     
     <div class="container">
-        <div class="table-wrp">
+        <div id="ph" class="table-wrp">
             <h3>Mnist Data Generator</h3>
             <table id="board">
                 <tr><td id="td1"></td><td id="td2"></td><td id="td3"></td><td id="td4"></td><td id="td5"></td><td id="td6"></td><td id="td7"></td><td id="td8"></td><td id="td9"></td><td id="td10"></td><td id="td11"></td><td id="td12"></td><td id="td13"></td><td id="td14"></td><td id="td15"></td><td id="td16"></td></tr>
@@ -36,6 +39,7 @@
             <input type="text" name="labelIN" id="labelIN">
             <button onclick="SubmitPack()" class="button" >SUBMIT</button>
             <button onclick="downloadData()" class="button" id="Download" >Download Data</button>
+            <button onclick="RenderTest()" class="button">Test Mode</button>
         </div>
     </div>
 
