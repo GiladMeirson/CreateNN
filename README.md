@@ -1,16 +1,15 @@
-# CreateNN
+# Project Title
 
+This is a brief description of your project.
 
-In the above example, the HTML code is included inside a code block. If you want the HTML to be rendered, you can include it directly:
+## Table of Contents
 
-```markdown
-# CreateNN
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-This is a project about creating a Neural Network.
+## Installation
 
-Here is an example of including HTML:
-
-<div>
-    <h1>Hello, World!</h1>
-    <p>This is a paragraph in HTML.</p>
-</div>
+```bash
+npm install my-project
