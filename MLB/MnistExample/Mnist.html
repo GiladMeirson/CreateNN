@@ -15,6 +15,15 @@
 <body>
     
     <div class="container">
+        <div class="rowSwitch">
+            <span class="label">Create Data</span>
+            <label class="switch">
+                <input onchange="Switcher(this.checked)" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <span class="label">Test Mode</span>
+        </div>
+
         <div id="ph" class="table-wrp">
             <h3>Mnist Data Generator</h3>
             <table id="board">
@@ -39,7 +48,7 @@
             <input type="text" name="labelIN" id="labelIN">
             <button onclick="SubmitPack()" class="button" >SUBMIT</button>
             <button onclick="downloadData()" class="button" id="Download" >Download Data</button>
-            <button onclick="RenderTest()" class="button side">Test Mode</button>
+            <!-- <button onclick="RenderTest()" class="button side">Test Mode</button> -->
         </div>
     </div>
 
