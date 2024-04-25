@@ -79,8 +79,8 @@ const RenderTest=()=>{
     </table>
     <br><br>
     <button onclick="testThis()" class="button">TEST</button>
-    <button onclick="location.reload()" class="button">BACK</button>
-    <button onclick="resetBoard()" class="button">Clear</button>
+    <button onclick="resetBoard()" class="buttonR">CLEAR</button>
+    <button onclick="location.reload()" class="button side">BACK</button>
     <hr>
     <p style="font-size:35px;text-align:center;" id="predictP"><p>
 

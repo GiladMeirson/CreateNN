@@ -55,6 +55,30 @@ table{
     background-color: #003d80;
 }
 
+
+
+.buttonR {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #c33a3a;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin-bottom: 15px;
+}
+
+.buttonR:hover {
+    background-color: #722323;
+}
+
+.buttonR:active {
+    background-color: #411111;
+}
+
 #labelIN{
     margin-block: 15px;
     font-size: 20px;
@@ -66,4 +90,10 @@ table{
 .table-wrp h3 {
     margin-block: 5px;
     font-size: 26px;
+}
+
+.side{
+    position: absolute;
+    top: 3%;
+    left: 2%;
 }
