@@ -70,44 +70,53 @@ const EvaluteNet=()=>{
         const res = _ThisNet.run(obj.input);
         console.log('res ',res);
         _EvaluteArray.push({predict:res,real:obj.output});
-        checkMaxIndex(res,obj.output)?correct++:'';
-         
-        ph.innerHTML+=`<p>model predict: ${RenderStringPredict(res)}</p>`
-        ph.innerHTML+=`<p>real output: ${RenderStringPredict(obj.output,false)}</p>`
+
+        ph.innerHTML+=`<p>model predict: ${res}</p>`
+        ph.innerHTML+=`<p>real output: ${obj.output}</p>`
+        errorsum+=Math.abs(res-obj.output);
+        //checkMaxIndex(res,obj.output)?correct++:'';
+        // ph.innerHTML+=`<p>model predict: ${RenderStringPredict(res)}</p>`
+        // ph.innerHTML+=`<p>real output: ${RenderStringPredict(obj.output,false)}</p>`
         ph.innerHTML+=`<p>--------------</p>`
     }
     
-    const accuracy = (correct/dataObject.length);
+    const accuracy = 1-(errorsum/dataObject.length);
     ph.innerHTML+=`<p>accuracy: ${accuracy}</p>`
     const Container = document.getElementById('consoleContainer');
     Container.scrollTop = Container.scrollHeight;
 }
 
-const TrainNN=()=>{
-    loader();
-    let trainString = document.getElementById('jsonInput').value;
-    //console.log(trainString);
-    trainString=trainString.replace('\n','');
-    const trainObject = JSON.parse(trainString);
-    //console.log(trainObject);
-    _config.activation=_activation;
-    _config.learningRate=_learningRate;
-    _ThisNet.train(trainObject,{
-        callback:(stats)=>{
-            //console.log(stats)
-            _trainstats.push(stats)
-            RenderToConsol(`iterations: ${stats.iterations} --> Error: ${stats.error}`)
-        },
-        activation:_activation,
-        learningRate:_learningRate,
 
-    });
-    RenderToConsol(`----------------------------------`)
-    RenderToConsol(`finish train. model is ready &#128077 `)
-    const Container = document.getElementById('consoleContainer');
-    Container.scrollTop = Container.scrollHeight;
-    stopLoader();
-    RenderBase3();
+
+
+const TrainNN= ()=>{
+    loader();
+    setTimeout(()=>{
+        let trainString = document.getElementById('jsonInput').value;
+        //console.log(trainString);
+        trainString=trainString.replace('\n','');
+        const trainObject = JSON.parse(trainString);
+        //console.log(trainObject);
+        _config.activation=_activation;
+        _config.learningRate=_learningRate;
+        _ThisNet.train(trainObject,{
+            callback:(stats)=>{
+                //console.log(stats)
+                _trainstats.push(stats)
+                RenderToConsol(`iterations: ${stats.iterations} --> Error: ${stats.error}`)
+            },
+            activation:_activation,
+            learningRate:_learningRate,
+    
+        });
+        RenderToConsol(`----------------------------------`)
+        RenderToConsol(`finish train. model is ready &#128077 `)
+        const Container = document.getElementById('consoleContainer');
+        Container.scrollTop = Container.scrollHeight;
+        stopLoader();
+        RenderBase3();
+    },500);
+
 }
 
 
