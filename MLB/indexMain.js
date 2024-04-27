@@ -40,7 +40,7 @@ const CreateNN=()=>{
         // learningRate:learningRateIN
     };
     const divistion = 1.9
-    console.log(innerHeight/divistion,innerWidth/divistion)
+    //console.log(innerHeight/divistion,innerWidth/divistion)
     const optSVG = {
         height: innerHeight/divistion,
         width: innerWidth/divistion,
@@ -91,31 +91,38 @@ const EvaluteNet=()=>{
 
 const TrainNN= ()=>{
     loader();
-    setTimeout(()=>{
-        let trainString = document.getElementById('jsonInput').value;
-        //console.log(trainString);
-        trainString=trainString.replace('\n','');
-        const trainObject = JSON.parse(trainString);
-        //console.log(trainObject);
-        _config.activation=_activation;
-        _config.learningRate=_learningRate;
-        _ThisNet.train(trainObject,{
-            callback:(stats)=>{
-                //console.log(stats)
-                _trainstats.push(stats)
-                RenderToConsol(`iterations: ${stats.iterations} --> Error: ${stats.error}`)
-            },
-            activation:_activation,
-            learningRate:_learningRate,
-    
-        });
+    let trainString = document.getElementById('jsonInput').value;
+    //console.log(trainString);
+    trainString=trainString.replace('\n','');
+    const trainObject = JSON.parse(trainString);
+    //console.log(trainObject);
+    _config.activation=_activation;
+    _config.learningRate=_learningRate;
+    let promis=_ThisNet.trainAsync(trainObject,{
+        callback:(stats)=>{
+            //console.log(stats)
+            _trainstats.push(stats)
+            RenderToConsol(`iterations: ${stats.iterations} --> Error: ${stats.error}`)
+        },
+        activation:_activation,
+        learningRate:_learningRate,
+        callbackPeriod: 10, // by defult
+
+    });
+    promis.then((res)=>{
         RenderToConsol(`----------------------------------`)
         RenderToConsol(`finish train. model is ready &#128077 `)
         const Container = document.getElementById('consoleContainer');
         Container.scrollTop = Container.scrollHeight;
-        stopLoader();
         RenderBase3();
-    },500);
+        stopLoader();
+        })
+        .catch((err)=>{
+            RenderToConsol(`----------------------------------`)
+            RenderToConsol(`Error in trainning`)
+            RenderToConsol(`----------------------------------`)
+            stopLoader();
+        })
 
 }
 
@@ -159,15 +166,27 @@ const checkMaxIndex = (arr1, arr2) => {
 
 //displays && Renders
 
-const RenderToConsol=(text,overRide=false)=>{
+const RenderToConsol=(text,overRide=false,status = 'good')=>{
     const ph = document.getElementById('consolPH');
-    if (overRide) {
-        ph.innerHTML=`<p>${text}</p>`;
+    if (status=='good') {
+        if (overRide) {
+            ph.innerHTML=`<p>${text}</p>`;
+        }
+        else{
+            ph.innerHTML+=`<p>${text}</p>`;
+    
+        }
     }
-    else{
-        ph.innerHTML+=`<p>${text}</p>`;
+    else if(status=='error'){
+        if (overRide) {
+            ph.innerHTML=`<p style="color:red;">${text}</p>`;
+        }
+        else{
+            ph.innerHTML+=`<p style="color:red;">${text}</p>`;
+    
+        }
+    }
 
-    }
     const Container = document.getElementById('consoleContainer');
     Container.scrollTop = Container.scrollHeight;
 }
@@ -483,7 +502,18 @@ const stopLoader=()=>{
 const AddHiddenInput = ()=>{
     const ph  = document.getElementById('hiddenPH');
     const hiddenElements = document.getElementsByClassName('hiddenLayersIN');
-    ph.innerHTML= `<input step="1" min="1" value="3" class="hiddenLayersIN" name="HiddenLayerSizeIN" id="HiddenLayerSizeIN${hiddenElements.length}" type="number">`+ph.innerHTML;
+    let strTornder = ``;
+    for (let i = 0; i < hiddenElements.length+1; i++) {
+        const element = hiddenElements[i];
+        strTornder+= `<input step="1" min="1" value="${element==undefined?3:element.value}" class="hiddenLayersIN" name="HiddenLayerSizeIN" id="HiddenLayerSizeIN${i}" type="number">`;
+
+
+    }
+
+    strTornder+=`<button style="max-width: 75px;" onclick="AddHiddenInput()" id="AddhiddenBtn">+</button>`;
+    ph.innerHTML = strTornder;
+    // <input step="1" min="1" value="3" class="hiddenLayersIN" name="HiddenLayerSizeIN" id="HiddenLayerSizeIN" type="number">
+    // <button style="max-width: 75px;" onclick="AddHiddenInput()" id="AddhiddenBtn">+</button>
 }
 const closeGraph =()=>{
     $('#GraphModal').hide();
