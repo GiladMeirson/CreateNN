@@ -87,15 +87,23 @@ const EvaluteNet=()=>{
 }
 
 
-
+const reverseData = (data) => {
+    data.forEach((item) => {
+        let input = item.input;
+        let output = item.output;
+        item.input = output;
+        item.output = input;
+    });
+    return data;
+};
 
 const TrainNN= ()=>{
     loader();
     let trainString = document.getElementById('jsonInput').value;
     //console.log(trainString);
     trainString=trainString.replace('\n','');
-    const trainObject = JSON.parse(trainString);
-    //console.log(trainObject);
+    const trainObject = reverseData(JSON.parse(trainString));
+    console.log(trainObject);
     _config.activation=_activation;
     _config.learningRate=_learningRate;
     let promis=_ThisNet.trainAsync(trainObject,{

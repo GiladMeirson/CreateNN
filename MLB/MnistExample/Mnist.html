@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="./Mnist.css">
     <script src="./trainedModel.js"></script>
+    <script src="./TrainedGENModel.js"></script>
     <script src="./Mnist.js"></script>
 </head>
 <body>
@@ -22,8 +23,11 @@
                 <span class="slider round"></span>
             </label>
             <span class="label">Test Mode</span>
-        </div>
 
+            
+        </div>
+        <br>
+        <button style="margin-left: 10px;" onclick="GenerateMode()">Generate Mode</button>
         <div id="ph" class="table-wrp">
             <h3>Mnist Data Generator</h3>
             <table id="board">
